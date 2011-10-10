@@ -1,61 +1,79 @@
 package models
 
 import play.db.anorm._
+import play.db.anorm.defaults._
 import play.db.anorm.SqlParser._
 
 case class Stone(
   id: Pk[Long],
   number: String,
   name: Option[String],
-  notes: Option[String]
+  notes: Option[String],
+  location_id: Long,
+  characteristics_id: Long,
+  typology_id: Long
 )
 
 case class StoneLocation(
-  gps: Boolean,
-  gps_precision: Option[Double],
-  commune: String,
-  town: String,
-  place_name: Option[String],
-  map: Option[Int],
-  longitude: Option[Double],
-  latitude: Option[Double],
-  altitude: Option[Double],
-  location_panoramic: Boolean,
-  location_near_path: Boolean,
-  location_in_woods: Boolean,
-  location_in_slope: Boolean,
-  location_in_meadow: Boolean,
-  location_in_group: Boolean,
-  location_comments: Option[String]
+  id: Pk[Long],
+  gps: Boolean = false,
+  gps_precision: Option[Double] = None,
+  commune: Option[String] = None,
+  town: Option[String] = None,
+  place_name: Option[String] = None,
+  map: Option[Int] = None,
+  longitude: Option[Double] = None,
+  latitude: Option[Double] = None,
+  altitude: Option[Double] = None,
+  location_panoramic: Boolean = false,
+  location_near_path: Boolean = false,
+  location_in_woods: Boolean = false,
+  location_in_slope: Boolean = false,
+  location_in_meadow: Boolean = false,
+  location_in_group: Boolean = false,
+  location_comments: Option[String] = None
 )
 
 case class StoneCharacteristics(
-  existing: Boolean,
-  type_erratic: Boolean,
-  type_in_scree: Boolean,
-  type_rock: Boolean,
-  type_comments: Option[String],
-  rock_nature: Option[String],
-  size_width: Option[Double],
-  size_height: Option[Double],
-  size_depth: Option[Double]
+  id: Pk[Long],
+  existing: Boolean = false,
+  type_erratic: Boolean = false,
+  type_in_scree: Boolean = false,
+  type_rock: Boolean = false,
+  type_comments: Option[String] = None,
+  rock_nature: Option[String] = None,
+  size_width: Option[Double] = None,
+  size_height: Option[Double] = None,
+  size_depth: Option[Double] = None
 )
 
 case class StoneTypology(
-  signs_cup_count: Option[Int],
-  signs_canal_count: Option[Int],
-  signs_other_count: Option[Int]
+  id: Pk[Long],
+  signs_cup_count: Option[Int] = None,
+  signs_canal_count: Option[Int] = None,
+  signs_other: Option[String] = None
 )
 
 case class Book(
   id: Pk[Long],
+  number: String,
   title: String,
-  publication: java.util.Date,
-  isbn: Option[String],
-  publisher: Option[String],
-  publisher_place: Option[String],
-  edition: Option[Int],
-  page_count: Option[Int],
-  notes: Option[String],
-  authors: Option[String]
+  authors: Option[String] = None,
+  publication: Option[java.util.Date] = None,
+  isbn: Option[String] = None,
+  publisher: Option[String] = None,
+  publisher_place: Option[String] = None,
+  edition: Option[Int] = None,
+  page_count: Option[Int] = None,
+  notes: Option[String] = None
 )
+
+object Stone extends Magic[Stone]
+
+object StoneLocation extends Magic[StoneLocation]
+
+object StoneCharacteristics extends Magic[StoneCharacteristics]
+
+object StoneTypology extends Magic[StoneTypology]
+
+object Book extends Magic[Book]
