@@ -5,6 +5,9 @@
 # Home page
 GET     /                                       Application.index
 
+GET     /stones                                 Application.stones
+GET     /stone/{number}                         Application.stone
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 

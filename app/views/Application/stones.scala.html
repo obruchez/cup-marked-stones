@@ -1,0 +1,25 @@
+@(stones: Seq[models.Stone])
+
+@main(title = "Stones") {
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#stones').dataTable();
+        });
+    </script>
+    <table class="display" id="stones">
+        <thead>
+            <tr>
+                <th>Number</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @stones.map { stone =>
+                <tr>
+                    <td>@stone.number</td>
+                    <td>@stone.name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
