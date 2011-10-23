@@ -31,8 +31,11 @@ import models._
       def getBoolean(elem: String): Boolean =
         Option((stoneElem \\ elem).text).map(v => if (v.toInt != 0) true else false).getOrElse(false)
 
-      val stoneLocation = StoneLocation(
+      val stone = new Stone(
         id = NotAssigned,
+        number = getString("Numéro").getOrElse(""),
+        name = getString("Nom"),
+        notes = getString("Notes"),
         gps = getBoolean("GPS"),
         gps_precision = getDouble("Précision").filter(_ > 0),
         commune = getString("Commune"),
@@ -48,13 +51,7 @@ import models._
         location_in_slope = getBoolean("EmplacementSurPente"),
         location_in_meadow = getBoolean("EmplacementDansPré"),
         location_in_group = getBoolean("EmplacementEnGroupe"),
-        location_comments = getString("EmplacementCommentaire")
-      )
-
-      val stoneLocationId: Long = StoneLocation.create(stoneLocation).fold(e => 0, sl => sl.id())
-
-      val stoneCharacteristics = StoneCharacteristics(
-        id = NotAssigned,
+        location_comments = getString("EmplacementCommentaire"),
         existing = getBoolean("Existante"),
         type_erratic = getBoolean("TypeErratique"),
         type_in_scree = getBoolean("TypeDansEboulement"),
@@ -63,28 +60,10 @@ import models._
         rock_nature = getString("NatureRoche"),
         size_width = getDouble("DimensionLargeur").filter(_ > 0),
         size_height = getDouble("DimensionHauteur").filter(_ > 0),
-        size_depth = getDouble("DimensionLongueur").filter(_ > 0)
-      )
-
-      val stoneCharacteristicsId: Long = StoneCharacteristics.create(stoneCharacteristics).fold(e => 0, sc => sc.id())
-
-      val stoneTypology = StoneTypology(
-        id = NotAssigned,
+        size_depth = getDouble("DimensionLongueur").filter(_ > 0),
         signs_cup_count = getInt("SignesCupules"),
         signs_canal_count = getInt("SignesCanaux"),
         signs_other = getString("SignesAutres")
-      )
-
-      val stoneTypologyId: Long = StoneTypology.create(stoneTypology).fold(e => 0, st => st.id())
-
-      val stone = Stone(
-        id = NotAssigned,
-        number = getString("Numéro").getOrElse(""),
-        name = getString("Nom"),
-        notes = getString("Notes"),
-        location_id = stoneLocationId,
-        characteristics_id = stoneCharacteristicsId,
-        typology_id = stoneTypologyId
       )
 
       Stone.create(stone)

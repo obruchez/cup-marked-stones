@@ -6,11 +6,14 @@
             $('#stones').dataTable();
         });
     </script>
-    <table class="display" id="stones">
+    <table id="stones" class="display" cellspacing="0" cellpadding="0" border="0">
         <thead>
             <tr>
                 <th>Number</th>
                 <th>Name</th>
+                <th>Commune</th>
+                <th>Town</th>
+                <th>Place name</th>
             </tr>
         </thead>
         <tbody>
@@ -18,6 +21,9 @@
                 <tr>
                     <td>@stone.number</td>
                     <td>@stone.name</td>
+                    <td>@stone.commune</td>
+                    <td>@stone.town</td>
+                    <td>@stone.place_name</td>
                 </tr>
             }
         </tbody>
